@@ -23,12 +23,12 @@ request.onload = function () {
   new Chart(document.getElementById("doughnut-chart"), {
     type: 'doughnut',
     data: {
-      labels: ["local_active_cases", "local_recovered", "local_total_cases"],
+      labels: ["local_deaths", "local_recovered", "local_active_cases"],
       datasets: [
         {
           label: "Population (millions)",
           backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"],
-          data: [local_active_cases,local_recovered,local_total_cases]
+          data: [local_deaths,local_recovered,local_active_cases]
         }
       ]
     },
