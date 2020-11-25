@@ -7,6 +7,11 @@ request.onload = function () {
   // Begin accessing JSON data here
   var info = JSON.parse(this.response)
   console.log(info)
+  global_deaths=info.data.global_deaths;
+  global_recovered=info.data.global_recovered;
+  global_total_cases=info.data.global_total_cases;
+  
+  
   local_active_cases = info.data.local_active_cases;
   local_deaths = info.data.local_deaths;
   local_new_cases = info.data.local_new_cases;
@@ -36,6 +41,54 @@ request.onload = function () {
       title: {
         display: true,
         text: 'current Corona Patient count as per '+ newDate
+      }
+    }
+});
+
+//world corona cases
+
+  new Chart(document.getElementById("doughnut-chart1"), {
+    type: 'doughnut',
+    data: {
+      labels: ["local_deaths", "local_recovered", "local_active_cases"],
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"],
+          data: [global_deaths,global_recovered,global_total_cases-global_recovered-global_deaths]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'current Corona Patient count as per '+ newDate
+      }
+    }
+});
+
+//comparision world and sri lanka
+new Chart(document.getElementById("bar-chart-grouped"), {
+    type: 'bar',
+    data: {
+      labels: ["global_deaths", "global_recovered", "Current "],
+      datasets: [
+        {
+          label: "World",
+          backgroundColor: "#3e95cd",
+          data: [global_deaths,global_recovered,global_total_cases-global_recovered-global_deaths]
+        }, {
+          label: "Sri lanka",
+          backgroundColor: "#8e5ea2",
+		  data: [local_deaths,local_recovered,local_active_cases]
+          
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Population growth (millions)'
       }
     }
 });
